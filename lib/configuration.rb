@@ -5,6 +5,8 @@ class Application < Sinatra::Base
     set :views,    File.join(File.dirname(__FILE__) , '..', 'views')
   end
 
+  MongoMapper.database = "pdf-generator"
+
   configure :production do
 
   end
