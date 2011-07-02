@@ -5,10 +5,11 @@ class Application < Sinatra::Base
     set :views,    File.join(File.dirname(__FILE__) , '..', 'views')
   end
 
-  MongoMapper.database = "pdf-generator"
+  MongoMapper.database = "stories"
 
   configure :production do
-
+    MongoMapper.connection = Mongo::Connection.new('staff.mongohq.com', 10008)
+    MongoMapper.database.authenticate('ministryofstoriesdev4good@gmail.com', 'ewfwefmslkdsqqpwq')
   end
 
   configure :development do
