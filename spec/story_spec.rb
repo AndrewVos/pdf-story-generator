@@ -20,4 +20,26 @@ describe Story do
       Story.all.first.content.should == 'some story content'
     end
   end
+
+  describe ".pdf" do
+    before :each do
+      @pdf = mock
+      @pdf.stub!(:text)
+      @pdf.stub!(:render)
+      Prawn::Document.stub!(:new).and_return(@pdf)
+    end
+
+    it "sets the pdf title" do
+      @story.title = 'story title'
+      @story.content = 'content'
+      @pdf.should_receive(:text).with('story title')
+      @pdf.should_receive(:text).with('content')
+      @story.pdf
+    end
+
+    it "renders the pdf" do
+      @pdf.should_receive(:render).and_return 'rendered content'
+      @story.pdf.should == 'rendered content'
+    end
+  end
 end

@@ -34,14 +34,31 @@ describe Application do
     end
 
     it "returns the story id as json" do
-      @story.id = "the-story-id"
       post "/story"
-      last_response.body.should == @story.id.to_json
+      last_response.body.should == @story.to_json
     end
 
     it "sets content type to json" do
       post "/story"
       last_response.content_type.should == "application/json"
+    end
+  end
+
+  context "GET /story/:id" do
+    it "returns the story as pdf" do
+      story = mock
+      story.stub!(:pdf).and_return('pdf content')
+      Story.stub!(:find).and_return(story)
+      get '/story/some-story-id'
+      last_response.body.should == 'pdf content'
+    end
+
+    it "sets the content type to pdf" do
+      story = mock
+      story.stub!(:pdf).and_return('pdf content')
+      Story.stub!(:find).and_return(story)
+      get '/story/some-story-id'
+      last_response.content_type.should == 'application/pdf'
     end
   end
 end
