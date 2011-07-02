@@ -7,10 +7,6 @@ require_relative 'story'
 require File.join(File.dirname(__FILE__), 'configuration.rb')
 
 class Application < Sinatra::Base
-  get '/?' do
-    erb :index
-  end
-
   post '/story' do
     story = Story.new
     story.title   = params[:title]
