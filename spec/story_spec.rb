@@ -7,15 +7,17 @@ describe Story do
     @story = Story.new
   end
 
-  it "stores a title" do
-    @story.title = 'story title'
-    @story.save
-    Story.all.first.title.should == 'story title'
-  end
+  describe ".save" do
+    it "stores a title" do
+      @story.title = 'story title'
+      @story.save
+      Story.all.first.title.should == 'story title'
+    end
 
-  it "stores content" do
-    @story.content = 'some story content'
-    @story.save
-    Story.all.first.content.should == 'some story content'
+    it "stores content" do
+      @story.content = 'some story content'
+      @story.save
+      Story.all.first.content.should == 'some story content'
+    end
   end
 end
