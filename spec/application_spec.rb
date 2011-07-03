@@ -44,6 +44,23 @@ describe Application do
     end
   end
 
+  context "GET /stories" do
+    it "shows a list of stories" do
+      stories = []
+      1.upto(2).each do |story_number|
+        story = Story.new
+        story.id = "story-id-#{story_number}"
+        story.title = "Story number #{story_number}"
+        stories << story
+      end
+
+      Story.should_receive(:all).and_return(stories)
+      get '/stories'
+      last_response.body.should include '<a href="http://pdf-story-generator.heroku.com/story/story-id-1">Story number 1</a>'
+      last_response.body.should include '<a href="http://pdf-story-generator.heroku.com/story/story-id-2">Story number 2</a>'
+    end
+  end
+
   context "GET /story/:id" do
     it "returns the story as pdf" do
       story = mock

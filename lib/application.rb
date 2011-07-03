@@ -26,4 +26,13 @@ class Application < Sinatra::Base
     story = Story.find(params[:id])
     story.delete
   end
+
+  get '/stories/?' do
+    body = ''
+    Story.all.each do |story|
+     body << "<a href=\"http://pdf-story-generator.heroku.com/story/#{story.id}\">#{story.title}</a>"
+     body << "<br />"
+    end
+    body
+  end
 end
