@@ -61,4 +61,22 @@ describe Application do
       last_response.content_type.should == 'application/pdf'
     end
   end
+
+  context "DELETE /story/:id" do
+    before :each do
+      @story = Story.new
+      @story.stub!(:delete)
+      Story.stub!(:find).and_return(@story)
+    end
+
+    it "finds the story by the id" do
+      Story.should_receive(:find).with('some-story-id')
+      delete '/story/some-story-id'
+    end
+
+    it "deletes the story" do
+      @story.should_receive(:delete)
+      delete '/story/some-story-id'
+    end
+  end
 end

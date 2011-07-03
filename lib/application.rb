@@ -21,4 +21,9 @@ class Application < Sinatra::Base
     content_type :pdf
     story.pdf
   end
+
+  delete '/story/:id' do
+    story = Story.find(params[:id])
+    story.delete
+  end
 end
